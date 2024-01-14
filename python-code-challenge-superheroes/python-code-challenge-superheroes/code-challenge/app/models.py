@@ -7,8 +7,10 @@ db = SQLAlchemy(app)
 
 hero_power_association = db.Table('hero_power_association',
     db.Column('hero_id', db.Integer, db.ForeignKey('hero.id')),
-    db.Column('power_id', db.Integer, db.ForeignKey('power.id'))
+    db.Column('power_id', db.Integer, db.ForeignKey('power.id')),
+    db.Column('Strength', db.String, ('Strong'),('Weak'),('Average'))
 )
+
 
 class Hero(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -19,7 +21,7 @@ class Power(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
     heroes = db.relationship('Hero', secondary=hero_power_association, back_populates='powers')
-
+    description = db.Column(db.String >=(20),nullable = False)
 
 db.create_all()
 
