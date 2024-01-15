@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from flask import SQLAlchemy
-from flask import Flask, make_response,jsonify,Response
+from flask import Flask, make_response,jsonify,request
 from flask import Migrate
 
 from models import db,heros,Powers, hero_power_association
@@ -15,9 +15,18 @@ db.init_app(app)
 
 @app.route('/heros', methods=['GET'])
 def heros():
-    heros = heros.query.all()
-    return ''
+    if request.method == 'GET':
+        heros = heros.query.all()
 
+        return make_response(
+            jsonify([heros.to_dict() for hero in heros]),
+            200,
+        )
+
+    return make_response(
+        jsonify({"text": "Method Not Allowed"}),
+        405,
+    ) 
 
 if __name__ == '__main__':
     app.run(port=5555)
