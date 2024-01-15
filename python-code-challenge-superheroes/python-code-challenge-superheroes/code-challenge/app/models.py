@@ -12,16 +12,16 @@ hero_power_association = db.Table('hero_power_association',
 )
 
 
-class Hero(db.Model):
+class Heros(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
     powers = db.relationship('Power', secondary=hero_power_association, back_populates='heroes')
 
-class Power(db.Model):
+class Powers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
     heroes = db.relationship('Hero', secondary=hero_power_association, back_populates='powers')
-    description = db.Column(db.String >=(20),nullable = False)
+    description = db.Column(db.String,('description >= 20'),nullable = False)
 
 db.create_all()
 

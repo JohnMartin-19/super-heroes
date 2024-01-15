@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 from flask import SQLAlchemy
-from flask import Flask, make_response
+from flask import Flask, make_response,jsonify,Response
 from flask import Migrate
 
-from models import db,Hero
+from models import db,heros,Powers, hero_power_association
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/app.db'
@@ -13,8 +13,9 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
-@app.route('/')
-def home():
+@app.route('/heros', methods=['GET'])
+def heros():
+    heros = heros.query.all()
     return ''
 
 
