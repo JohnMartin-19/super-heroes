@@ -38,6 +38,24 @@ def get_hero_by_id(id):
         return make_response(
             jsonify([results.to_dict() for result in results ]), 200
         )
+    else:
+        return make_response('404 not found')
+    
+@app.route('/powers', methods=['GET'])
+def Powers():
+    if request.method == 'GET':
+        powers = Powers.query.all()
+
+        return make_response(
+            jsonify([powers.to_dict() for power in powers]),
+            200,
+        )
+
+    return make_response(
+        jsonify({"text": "Method Not Allowed"}),
+        405,
+    ) 
+
 
 
 if __name__ == '__main__':
